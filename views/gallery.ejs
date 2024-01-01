@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.4/jszip.min.js"  type="text/javascript"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>Gallery</title>
+  <link rel="stylesheet" href="/css/gallery.css" type="text/css">
+</head>
+<body>
+  <h1>Welcome to your photo gallery <%= username %>!</h1>
+  <% if (left === 0) { %>
+    <h2>You can't add more photos, limit of 10 reached</h2>
+  <% } else { %>
+    <h2>You can add <%= left %> more photos</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input id="upload" type="file" name="image">
+      <input id="submit" type="submit">
+    </form>
+  <% } %>
+  
+  
+    <img id="show">
+
+
+    <div id="main-div"></div>
+
+    <div class="container">
+      <div class="progress-bar"></div>
+    </div>
+ 
+
+<script type="text/javascript" src="/javascript/gallery.js"></script>
+</body>
+</html>

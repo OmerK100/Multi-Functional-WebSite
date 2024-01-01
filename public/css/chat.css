@@ -1,0 +1,21 @@
+body {
+  display: flex;
+  width: 100%;
+}
+
+#message-container {
+  border-left: 5px solid black;
+}
+
+body > div {
+  width: 50%;
+  height: 100vh;
+}
+
+.join-notify {
+  color: green;
+}
+
+.leave-notify {
+  color: red;
+}

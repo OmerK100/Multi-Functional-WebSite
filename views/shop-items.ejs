@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Items</title>
+</head>
+<body>
+  <h1>You can view and purchase items <%= username %></h1>
+  <p id="balance">Your account balance: <%= amount %></p>
+
+  <div>
+    <label class="items"><%= result.rows[0].product_name %></label>
+    <label>, Price: <%= result.rows[0].product_price %></label>
+    <button class="add">+</button>
+    <label class="amount_chosen">Amount chosen: 0</label>
+    <button class="dec">-</button>
+    <label class="amount_available">Amount available: <%= result.rows[0].product_amount %></label>
+  </div>
+
+  <div>
+    <label class="items"><%= result.rows[1].product_name %></label>
+    <label>, Price: <%= result.rows[1].product_price %></label>
+    <button class="add">+</button>
+    <label class="amount_chosen">Amount chosen: 0</label>
+    <button class="dec">-</button>
+    <label class="amount_available">Amount available: <%= result.rows[1].product_amount %></label>
+  </div>
+
+  <div>
+    <label class="items"><%= result.rows[2].product_name %></label>
+    <label>, Price: <%= result.rows[2].product_price %></label>
+    <button class="add">+</button>
+    <label class="amount_chosen">Amount chosen: 0</label>
+    <button class="dec">-</button>
+    <label class="amount_available">Amount available: <%= result.rows[2].product_amount %></label>
+  </div>
+
+  <div>
+    <label class="items"><%= result.rows[3].product_name %></label>
+    <label>, Price: <%= result.rows[3].product_price %></label>
+    <button class="add">+</button>
+    <label class="amount_chosen">Amount chosen: 0</label>
+    <button class="dec">-</button>
+    <label class="amount_available">Amount available: <%= result.rows[3].product_amount %></label>
+  </div>
+
+  <div>
+    <label class="items"><%= result.rows[4].product_name %></label>
+    <label>, Price: <%= result.rows[4].product_price %></label>
+    <button class="add">+</button>
+    <label class="amount_chosen">Amount chosen: 0</label>
+    <button class="dec">-</button>
+    <label class="amount_available">Amount available: <%= result.rows[4].product_amount %></label>
+  </div>
+
+  <div>
+    <label class="items"><%= result.rows[5].product_name %></label>
+    <label>, Price: <%= result.rows[5].product_price %></label>
+    <button class="add">+</button>
+    <label class="amount_chosen">Amount chosen: 0</label>
+    <button class="dec">-</button>
+    <label class="amount_available">Amount available: <%= result.rows[5].product_amount %></label>
+  </div>
+
+  <button id="purchase">Purchase</button>
+
+  <form action="/back" method="get">
+    <button value="back">Back</button>
+  </form>
+
+  <script type="text/javascript" src="/javascript/shop-items.js"></script>
+</body>
+</html>

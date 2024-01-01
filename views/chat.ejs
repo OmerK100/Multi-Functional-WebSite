@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+  <link rel="stylesheet" href="/css/chat.css" type="text/css">
+  <title>Chat</title>
+</head>
+<body>
+
+  <div id="main-container">
+  <div id="main1">
+
+  <h1>You have entered the chat <%= username %>!</h1>
+
+  <h2>Online Users:</h2>
+  <ul id="user_list"></ul>
+
+  <p>Private Chat:</p>
+  <input id="username" type="text" placeholder="Enter User Name">
+  <input id="private-input" type="text" placeholder="Enter Anything..">
+  <button id="private-button">Private Chat</button>
+
+  <div id="div-rooms">
+
+  <p>Choose Room:</p>
+  <button class="rooms" id="global">Global Chat</button>
+
+  </div>
+
+  <p>Create Room:</p>
+  <input id="room-input" type="text" placeholder="Enter Room Name">
+  <button id="create-button">Create</button>
+
+  </div>
+
+  <div id="main2">
+
+  <input id="input-message-room" type="text" placeholder="Enter Anything..">
+  <button id="submit-message-room">Submit Message</button>
+  <button id="leave-room">Leave</button>
+  </div>
+
+  </div>
+
+
+  <div id="message-container">
+    <p id="your-chat">You are not in a chat currently!</p>
+    <ul id="messages"></ul>
+
+  </div>
+
+
+  <script type="text/javascript" src="/javascript/chat.js"></script>
+</body>
+</html>
