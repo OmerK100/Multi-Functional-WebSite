@@ -26,12 +26,12 @@ body {
   justify-content: center;
 }
 
-#left-container > h1 {
-  font-size: 2rem;
+#left-container h1 {
+  font-size: 1.5rem;
 }
 
-#left-container > h2 {
-  font-size: 2rem;
+#left-container h2 {
+  font-size: 1.2rem;
 }
 
 form {

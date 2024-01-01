@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/signin.css" type="text/css"> <!--fix!!!-->
-  <title>Login</title>
+  <link rel="stylesheet" href="/css/signup.css" type="text/css"> <!--fix!!!-->
+  <title>Register</title>
 </head>
 <body>
   <!--<form method="post" action="/in">  
@@ -18,15 +18,20 @@
     
   <div id="left-container">
     <div>
-      <h1>Welcome Back!</h1>
-      <h2>Enter your credentials to access your account</h2>
+      <h1>Welcome to the fake-shop-app registration page!</h1>
+      <h2>Create an account down below:</h2>
     </div>
 
     <form method="post" action="/in">  
       <div class="container">
         <div>
-          <label>Email address/Username</label>   
-          <input type="text" placeholder="Enter email address or username" name="emailOrUser" onfocus="this.placeholder=''" 
+          <label>Email address</label>   
+          <input type="text" placeholder="Enter email address or username" name="email" onfocus="this.placeholder=''" 
+          onblur="this.placeholder='Enter email address or username'"required>
+        </div>
+        <div>
+          <label>Username</label>   
+          <input type="text" placeholder="Enter email address or username" name="username" onfocus="this.placeholder=''" 
           onblur="this.placeholder='Enter email address or username'"required>
         </div>
         <div>
@@ -37,8 +42,6 @@
           <button type="submit">Login</button>   
       </div>   
     </form>
-
-    <p>Don't have an account? <a href="http://localhost:4000/register">Sign Up</a></p>
   </div>
 
   <div id="right-container">

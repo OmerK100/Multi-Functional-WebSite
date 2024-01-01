@@ -272,7 +272,7 @@ const upload = multer({storage: storage});
 
 /******************************************************************************************************************************** */
 
-app.get("/", async (req, res) => {
+/*app.get("/", async (req, res) => {
   try {
     res.sendFile(__dirname + "/public/html/welcome.html");
   }
@@ -297,6 +297,24 @@ app.get("/register", async (req, res) => {
   catch (error) {
 
   }
+});*/
+
+app.get("/", async (req, res) => {
+  try {
+    res.sendFile(__dirname + "/public/html/signin.html");
+  }
+  catch (error) {
+
+  }
+});
+
+app.get("/register", async (req, res) => {
+  try {
+    res.sendFile(__dirname + "/public/html/signup.html");
+  }
+  catch (error) {
+
+  }
 });
 
 app.post("/in", userInValidation(userSchemaIn), async (req, res) => {
@@ -305,10 +323,10 @@ app.post("/in", userInValidation(userSchemaIn), async (req, res) => {
     const hashedPass = await bcrypt.hash(req.body.password , 10); 
     var flag = false;
     for (var i = 0 ; i < result.rows.length & flag === false ; i++) {
-      if (result.rows[i].username === req.body.username && await bcrypt.compare(req.body.password, result.rows[i].password)) {
+      if ((result.rows[i].username === req.body.emailOrUser || result.rows[i].email === req.body.emailOrUser) && await bcrypt.compare(req.body.password, result.rows[i].password)) {
         flag = true;
         req.session.balance = result.rows[i].account_money;
-        req.session.user = req.body.username;
+        req.session.user = result.rows[i].username;
         req.session.password = req.body.password;
         req.session.authorized = true;
         res.render(__dirname + "/views/shop.ejs" , {username: req.body.username, amount: result.rows[i].account_money, message: ""});
