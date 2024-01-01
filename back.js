@@ -35,7 +35,7 @@ const userUpValidation = (schema) => async (req, res, next) => {
 };
 
 var userSchemaIn = object({
-  username: string().required(),
+  emailOrUser: string().required(),
   password: string().required(),
 });
 
