@@ -464,7 +464,7 @@ app.post("/answer", answerValidation(answerSchema), async (req, res) => {
                     WHERE "username" = $2`;
           await db.query(query, [req.session.balance, req.session.user]);
           ret.amount = req.session.balance;
-          ret.message = "Correct!";
+          ret.message = "Correct! Balance increased by 50";
           res.json(JSON.stringify(ret));
         } else {
           ret.amount = req.session.balance;

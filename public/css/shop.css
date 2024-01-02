@@ -109,10 +109,43 @@ h3 {
   border-radius: 5px;
   background-color: white;
   border: 1.5px solid black;
+  outline: "none";
 }
 
 #play-timer {
   margin-top: 2rem;
   display: flex;
+  margin-bottom: 2rem;
 }
+
+.ans-div {
+  margin: 1rem 1rem;
+}
+
+#submit {
+  width: 5rem;
+  border: 0px solid;
+  border-radius: 5px;
+  transition: all .4s ease;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+  padding: 10px;
+  outline: none;
+  z-index: 1;
+  background-color: #3A5B22;
+  color: white;
+  margin-top: 1.7rem;
+}
+
+#submit:hover {
+  color: gray;
+  background-color: lightgreen;
+}
+
+.triv {
+  vertical-align: middle;
+}
+
+
 

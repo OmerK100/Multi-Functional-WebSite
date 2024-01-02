@@ -1,14 +1,18 @@
 const play = document.getElementById("play");
 const submit = document.getElementById("submit");
 var flag = false;
-//var all_trivia = document.getElementsByTagName("label");
-var all_trivia = document.getElementsByClassName("a");
+var all_trivia = document.getElementsByTagName("label");
 var all_radio = document.getElementsByClassName("triv");
+
+console.log(all_trivia);
+console.log(all_radio);
 
 for (var i = 0; i < all_radio.length; i++) {
   all_radio[i].style.display = "none";
+  all_trivia[i].style.display = "none";
 }
 submit.style.display = "none";
+
 play.classList.add("play-hover");
 
 play.addEventListener("click", () => {
@@ -106,7 +110,7 @@ function runTimer() {
 
 function pause() {
   clearInterval(timer);
-  document.getElementById("timer").innerText = "00:30";
+  document.getElementById("timer").innerText = "00:20";
 }
 
 function hideOrBlock(which) {
@@ -114,6 +118,6 @@ function hideOrBlock(which) {
   for (var i = 0; i < all_trivia.length; i++) {
     all_trivia[i].style.display = which;
     all_radio[i].style.display = which;
-    submit.style.display = which;
   }
+  submit.style.display = which;
 }

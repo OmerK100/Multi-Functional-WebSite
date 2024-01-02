@@ -48,34 +48,38 @@
       <div>
         <h1>Welcome back to the home page, <%= username %>!</h1>
         <p id="balance">Your current account balance: <i><%= amount %></i></p>
-        <h3>To increase your balance by 50, answer correctly a trivia question:</h3>
+        <h3>To earn fake-coins, answer correctly several trivia questins!</h3>
+        <h4>Each correct answer provides 10 fake-coins</h4>
         <div id="play-timer">
           <button id="play">Play</button>
-          <button id="timer">00:30</button>
+          <button id="timer">00:20</button>
         </div>
-      
-        
+      <p id="question"></p>
+      <div class="ans-div">
+        <input type="radio" id="answer1" class="triv" name="group"/>
+        <label></label>
+      </div>
+      <div class="ans-div">
+        <input type="radio" id="answer2" class="triv" name="group"/>
+        <label></label>
+      </div>
+      <div class="ans-div">
+        <input type="radio" id="answer3" class="triv" name="group"/>
+        <label></label>
+      </div>
+      <div class="ans-div">
+        <input type="radio" id="answer4" class="triv" name="group"/>
+        <label></label>
+      </div>
+      <p id="message"><%= message %></p>
+      <button id="submit">Submit</button>
+      </div>
 
-</div>
     </div>
 
   </div>
 
-  <p id="question">
-
-    <input type="radio" id="answer1" class="triv" name="group"/>
-<label class="a"></label>
-<input type="radio" id="answer2" class="triv" name="group"/>
-<label class="a"></label>
-<input type="radio" id="answer3" class="triv" name="group"/>
-<label class="a"></label>
-<input type="radio" id="answer4" class="triv" name="group"/>
-<label class="a"></label>
-
-
-<p id="message"><%= message %></p>
-
-<button id="submit">Submit Answer</button>
+  
 
   <!--<h1>Welcome back to the home page, !</h1>
   <p id="balance">Your account balance: </p>
