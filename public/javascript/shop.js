@@ -1,23 +1,35 @@
 const play = document.getElementById("play");
 const submit = document.getElementById("submit");
 var flag = false;
-var all_trivia = document.getElementsByTagName("label");
+//var all_trivia = document.getElementsByTagName("label");
+var all_trivia = document.getElementsByClassName("a");
 var all_radio = document.getElementsByClassName("triv");
 
 for (var i = 0; i < all_radio.length; i++) {
   all_radio[i].style.display = "none";
 }
+submit.style.display = "none";
+play.classList.add("play-hover");
 
 play.addEventListener("click", () => {
   let trivia;
+  play.disabled = true;
+  play.style.opacity = 0.5;
+  play.classList.remove("play-hover");
   fetch("http://localhost:4000/trivia")
     .then(res => res.json())
     .then(data => {
       trivia = JSON.parse(data);
       flag = true;
       document.getElementById("question").innerText = trivia.question;
+      console.log(document.getElementById("question").innerText);
+      console.log(all_trivia.length);
+      console.log(all_trivia);
+      console.log(trivia.answers.length);
       for (var i = 0; i < all_trivia.length; i++) {
         all_trivia[i].innerText = trivia.answers[i];
+        console.log(all_trivia[i]);
+        console.log(all_trivia[i].innerText);
       }
       hideOrBlock("block");
       document.getElementById("message").innerText = "";
@@ -28,6 +40,9 @@ play.addEventListener("click", () => {
 submit.addEventListener("click", submitFunc);
 
 function submitFunc() {
+  play.disabled = false;
+  play.style.opacity = 1;
+  play.classList.add("play-hover");
   var ans = {num: null};
   for (var i = 0; i <= all_radio.length; i++) {
     if (all_radio[i].checked === true) {
@@ -76,6 +91,9 @@ function runTimer() {
         document.getElementById("timer").innerText = "Time is up!";
         clearInterval(timer);
         hideOrBlock("none");
+        play.disabled = false;
+        play.style.opacity = 1;
+        play.classList.add("play-hover");
       }
     } else if (sec < 10) {
       document.getElementById("timer").innerText = "00:0" + sec;

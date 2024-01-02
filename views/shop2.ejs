@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/shop.css" type="text/css">
+  <title>Shop Page</title>
+</head>
+<body>
+  <h1>Welcome back to the home page, <%= username %>!</h1>
+  <p id="balance">Your account balance: <%= amount %></p>
+  <h3>To increase your balance by 50, answer correctly a trivia question:</h3>
+  <button id="play">Play</button>
+  <p id="question"></p>
+  
+  <input type="radio" id="answer1" class="triv" name="group"/>
+  <label></label>
+  <input type="radio" id="answer2" class="triv" name="group"/>
+  <label></label>
+  <input type="radio" id="answer3" class="triv" name="group"/>
+  <label></label>
+  <input type="radio" id="answer4" class="triv" name="group"/>
+  <label></label>
+   
+  <p id="timer">00:30</p>
+  <p id="message"><%= message %></p>
+
+  <button id="submit">Submit Answer</button>
+
+  <a href="/shop-items">Shop The Items</a>
+
+  <a href="/chat">Chat</a>
+
+  <a href="/gallery">Gallery</a>
+
+  <form action="/log-out" method="get">
+    <button name="logOut" value="log_out">Log Out</button>
+  </form>
+
+  <script type="text/javascript" src="/javascript/shop.js"></script>
+</body>
+</html>

@@ -329,7 +329,7 @@ app.post("/in", userInValidation(userSchemaIn), async (req, res) => {
         req.session.user = result.rows[i].username;
         req.session.password = req.body.password;
         req.session.authorized = true;
-        res.render(__dirname + "/views/shop.ejs" , {username: req.body.username, amount: result.rows[i].account_money, message: ""});
+        res.render(__dirname + "/views/shop.ejs" , {username: req.session.user, amount: result.rows[i].account_money, message: ""});
       }
     }
     if (flag === false) {
@@ -363,7 +363,7 @@ app.post("/up", userUpValidation(userSchemaUp), async (req, res) => {
         headers: { 'x-api-key': "dfZP5uxUQ7SRa0BjbWrd3g==gLC8UtkfYvxos4VI" }
       }
 
-      let url = "https://api.api-ninjas.com/v1/profanityfilter?text=" + req.body.username;
+      let url = "https://api.api-ninjas.com/v1/profanityfilter?text=" + req.session.user;
 
       var a = await fetch(url,options)
         /*.then(res => res.json()) // parse response as JSON
@@ -390,7 +390,7 @@ app.post("/up", userUpValidation(userSchemaUp), async (req, res) => {
         await db.query("INSERT INTO purchases (username) VALUES ($1)", [
           req.body.username
         ]);
-        res.render(__dirname + "/views/shop.ejs" , {username: req.body.username, amount: 0, message: ""});
+        res.render(__dirname + "/views/shop.ejs" , {username: req.session.user, amount: 0, message: ""});
       } else {
         res.render(__dirname + "/views/fail.ejs" , {message: "Registration failed: Chosen user name contains profanities"});
       }
