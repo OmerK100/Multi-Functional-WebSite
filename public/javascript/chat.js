@@ -1,3 +1,9 @@
+/**
+ * Client's chat side, all functions such as messaging, room creatin/joining/leaving, etc..
+ */
+
+
+
 const socket = io("ws://localhost:4000");
 
 /*const globalButton = document.getElementById("global");
@@ -117,7 +123,7 @@ const privateInput = document.getElementById("private-input");
 const privateButton = document.getElementById("private-button");
 
 privateButton.addEventListener("click", () => {
-  socket.emit("private initiate", {receiver: usernameInput.value, message: privateInput.value});
+  socket.emit("private initiate", {receiver: usernameInput.value, message: privateInput.value}); // Request private chat
   privateMessage = privateInput.value;
 });
 
@@ -136,7 +142,7 @@ socket.addEventListener("private initiate", (data) => {
   }
 });
 
-socket.addEventListener("join private", (data) => {
+socket.addEventListener("join private", (data) => { // Join a private chat
   document.getElementById("main1").style.display = "none";
   document.getElementById("main2").style.display = "block";
   whichRoom = data.roomId;
@@ -166,7 +172,7 @@ function goPrivate(from, message) {
   document.getElementById("messages").appendChild(li);
 }
 
-const globalButton = document.getElementById("global");
+const globalButton = document.getElementById("global"); // Join a global chat
 
 globalButton.addEventListener("click", (event) => {
   socket.emit("join room", {roomName: event.target.innerText});
@@ -195,7 +201,7 @@ createButton.addEventListener("click", () => {
   socket.emit("create room", {roomName: roomName});
 });
 
-socket.addEventListener("new room", (data) => {
+socket.addEventListener("new room", (data) => { // Create a new room
   const button = document.createElement("button");
   button.innerText = data;
   button.addEventListener("click", (event) => {

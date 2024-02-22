@@ -1,5 +1,5 @@
 var counter = 0;
-fetch("http://localhost:4000/photos")
+fetch("http://localhost:4000/photos") // Fetch client's photos from the server
   .then(res => 
     
    

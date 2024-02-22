@@ -1,4 +1,4 @@
-import express from "express";
+import express from "express"; // Imports of dependencies
 import bodyParser from "body-parser";
 import axios from "axios";
 import { dirname } from "path";
@@ -19,7 +19,8 @@ import path from "path";
 import * as fs from "fs";
 /*********************************************************************************************************************** */
 
-var userSchemaUp = object({
+// Validation of incoming data from requests using validation from 'yup' package
+var userSchemaUp = object({ // User login/sign up validations
   username: string().required(),
   password: string().required(),
   email: string().email().required(),
@@ -48,7 +49,7 @@ const userInValidation = (schema) => async (req, res, next) => {
   }
 };
 
-var answerSchema = object({
+var answerSchema = object({ // Trivia answer validation
   num: number().integer().required(),
 });
 
@@ -61,7 +62,7 @@ const answerValidation = (schema) => async (req, res, next) => {
   }
 };
 
-var purchaseSchema = object({
+var purchaseSchema = object({ // Shop purchase validation
   items: array().of(number().integer()).min(6).max(6).required(),
 });
 
@@ -74,6 +75,7 @@ const purchaseValidation = (schema) => async (req, res, next) => {
   }
 };
 
+// Image validation
 const deleteImageSchema = object({ // when should be number, string also passes, should check why
   name: string().required(),
 });
@@ -103,7 +105,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.set("view engine", "ejs");
 
-const sessionMiddleware = session({
+const sessionMiddleware = session({ // Session middleware for authorziation between different pages when user is already logged in
   secret: "my-secret",
   resave: true,
   saveUninitialized: true
@@ -125,11 +127,13 @@ var userSessions = [];
 var userNames = [];
 var rooms = ["Global Chat"];
 
+// io server for chat room
+
 io.on("connection", function(socket) {
 
   socket.handshake.session.rooms = [];
 
-  socket.emit("connection", "");
+  socket.emit("connection", ""); // Adding new user to io server
   socket.emit("previous users", userNames);
   socket.broadcast.emit("new user", socket.handshake.session.user);
 
@@ -139,7 +143,7 @@ io.on("connection", function(socket) {
 
   socket.join(socket.handshake.session.id);
 
-  socket.on("create room", function(userdata) {
+  socket.on("create room", function(userdata) { // User creates a room for chatting
     const {roomName} = userdata;
     if (roomName) {
       if (typeof roomName === "string") {
@@ -158,7 +162,7 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on("join room", function(userdata) {
+  socket.on("join room", function(userdata) { // Joining a specific room
     if (typeof userdata === "object") {
       const {roomName} = userdata;
       if (roomName) {
@@ -169,7 +173,7 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on("message room", function(userdata) {
+  socket.on("message room", function(userdata) { // Sending a message within a room
     if (typeof userdata === "object") {
       const {roomName, message} = userdata;
       if (roomName && message) {
@@ -178,7 +182,7 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on("leave room", function(userdata) {
+  socket.on("leave room", function(userdata) { // Leaving a room
     if (typeof userdata === "object") {
       const {roomName} = userdata;
       if (roomName) {
@@ -188,7 +192,7 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on("private initiate", function(userdata) {
+  socket.on("private initiate", function(userdata) { // Initiate request for private chat with some user
     if (typeof userdata === "object") {
       const {receiver, message} = userdata;
       if (receiver && message) {
@@ -201,7 +205,7 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on("join private", function(userdata) {
+  socket.on("join private", function(userdata) { // Accept private request from some user
     if (typeof userdata === "object") {
       const {from} = userdata;
       if (from) {
@@ -216,7 +220,7 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on("fail private", function(userdata) {
+  socket.on("fail private", function(userdata) { // Decline private request
     if (typeof userdata === "object") {
       const {from} = userdata;
       if (from) {
@@ -229,7 +233,7 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on("disconnect", function(userdata) {
+  socket.on("disconnect", function(userdata) { // Exit io server
     for (var i = 0; i < userSessions.length; i++) {
       if (userSessions[i].id === socket.handshake.session.id) {
         socket.broadcast.emit("disconnect user", userNames[i]);
@@ -249,7 +253,7 @@ io.on("connection", function(socket) {
 
 /***************************************************************************************************************************************** */
 
-const db = new pg.Client({
+const db = new pg.Client({ // Postgres databse connect
   user: "postgres",
   host: "localhost",
   database: "Fake Shop Quiz",
@@ -299,7 +303,7 @@ app.get("/register", async (req, res) => {
   }
 });*/
 
-app.get("/", async (req, res) => {
+app.get("/", async (req, res) => { // Login/signup routes - GET
   try {
     res.sendFile(__dirname + "/public/html/signin.html");
   }
@@ -317,12 +321,12 @@ app.get("/register", async (req, res) => {
   }
 });
 
-app.post("/in", userInValidation(userSchemaIn), async (req, res) => {
+app.post("/in", userInValidation(userSchemaIn), async (req, res) => { // Validate a login and render pages accordingly
   try {
     const result = await db.query("SELECT * FROM customers");
     const hashedPass = await bcrypt.hash(req.body.password , 10); 
     var flag = false;
-    for (var i = 0 ; i < result.rows.length & flag === false ; i++) {
+    for (var i = 0 ; i < result.rows.length && flag === false ; i++) {
       if ((result.rows[i].username === req.body.emailOrUser || result.rows[i].email === req.body.emailOrUser) && await bcrypt.compare(req.body.password, result.rows[i].password)) {
         flag = true;
         req.session.balance = result.rows[i].account_money;
@@ -340,12 +344,12 @@ app.post("/in", userInValidation(userSchemaIn), async (req, res) => {
   }
 });
 
-app.post("/up", userUpValidation(userSchemaUp), async (req, res) => {
+app.post("/up", userUpValidation(userSchemaUp), async (req, res) => { // Validate a signup and render pages accordingly
   try {
     const result = await db.query("SELECT * FROM customers");
     const result2 = await db.query("select * from purchases");
     var flag = false;
-    for (var i = 0 ; i < result.rows.length & flag === false ; i++) {
+    for (var i = 0 ; i < result.rows.length && flag === false ; i++) {
       if (result.rows[i].email === req.body.email) {
         res.render(__dirname + "/views/fail.ejs" , {message: "Registration failed: This email address is already registered"});
         flag = true;
@@ -363,7 +367,7 @@ app.post("/up", userUpValidation(userSchemaUp), async (req, res) => {
         headers: { 'x-api-key': "dfZP5uxUQ7SRa0BjbWrd3g==gLC8UtkfYvxos4VI" }
       }
 
-      let url = "https://api.api-ninjas.com/v1/profanityfilter?text=" + req.session.user;
+      let url = "https://api.api-ninjas.com/v1/profanityfilter?text=" + req.session.user; // Addition of profanity check for username API, not finished yet
 
       var a = await fetch(url,options)
         /*.then(res => res.json()) // parse response as JSON
@@ -400,7 +404,7 @@ app.post("/up", userUpValidation(userSchemaUp), async (req, res) => {
   }
 });
 
-app.get("/trivia", async (req, res) => {
+app.get("/trivia", async (req, res) => { // Route from requesting trivia questions, using an external API
   try {
     if (req.session.authorized === true) {
       req.session.timer = {start: 0, end: 100};
@@ -429,10 +433,62 @@ app.get("/trivia", async (req, res) => {
   catch (error) {
 
   }
+
+
+ /* try {
+    if (req.session.authorized === true) {
+      req.session.timer = {start: 0, end: 100};
+      //req.session.triv = {question: null, answers: []};
+      req.session.triv = {questions: [], answers: []};
+      var rand = shuffle([0, 1, 2, 3]);
+      const response = await fetch("https://the-trivia-api.com/v2/questions?limit=5");
+      const json = await response.json();
+      
+
+      console.log(json);
+
+      //console.log(json[2]);
+
+      for (var i = 0; i < 5; i++) {
+        req.session.triv.questions.push(json[i].question.text);
+        //console.log(req.session.triv.questions[i])
+        var arr = [];
+        var rand = shuffle([0, 1, 2, 3]);
+        var next = 0;
+        for (var j = 0; j <= 3; j++) {
+          if (rand[j] === 3) {
+            arr.push(json[i].correctAnswer);
+            //req.session.triv.answers[i].push(json[0].correctAnswer);
+          } else {
+            //req.session.triv.answers.push(json[0].incorrectAnswers[next]);
+            arr.push(json[i].incorrectAnswers[next]);
+            next++;
+          }
+        }
+        //console.log(arr);
+        req.session.triv.answers.push(arr);
+        next = 0;
+      }
+
+      console.log(req.session.triv);
+
+      req.session.timer.start = new Date().getTime() / 1000;
+      res.json(JSON.stringify(req.session.triv));
+      req.session.triv.answers = [];
+      req.session.triv.questions = [];
+    } else {
+
+    }
+  }
+  catch (error) {
+
+  }*/
+
+
 });
 
 
-function shuffle(array) {
+function shuffle(array) { // Function for shuffling of array, for the trivia answers
   for (let i = array.length - 1; i > 0; i--) { 
     const j = Math.floor(Math.random() * (i + 1)); 
     [array[i], array[j]] = [array[j], array[i]]; 
@@ -441,7 +497,7 @@ function shuffle(array) {
   return array;
 }
 
-app.post("/answer", answerValidation(answerSchema), async (req, res) => {
+app.post("/answer", answerValidation(answerSchema), async (req, res) => { // Validate a trivia answer from the user and act accordignly
   try {
     if (req.session.authorized === true) {
       var rand = shuffle([0, 1, 2, 3]);
@@ -452,7 +508,7 @@ app.post("/answer", answerValidation(answerSchema), async (req, res) => {
         ret.message = "Your time is up!";
         res.json(JSON.stringify(ret));
       } 
-      if (req.body.num != 1 && req.body.num != 2 && req.body.num != 3 && req.body.num != 4) {
+      if (req.body.num != 1 && req.body.num != 2 && req.body.num != 3 && req.body.num != 4) { // Check if answer is correct, if it is, increase users balance (through database)
         ret.amount = req.session.balance;
         ret.message = "Wrong input, use 1,2,3 or 4 as your answer!";
         res.json(JSON.stringify(ret));
@@ -478,7 +534,7 @@ app.post("/answer", answerValidation(answerSchema), async (req, res) => {
   }
 });
 
-app.get("/shop-items", async (req, res) => {
+app.get("/shop-items", async (req, res) => { // Route for shop
   try {
     if (req.session.authorized === true) {
       const result = await db.query("SELECT * FROM products");
@@ -493,7 +549,7 @@ app.get("/shop-items", async (req, res) => {
   }
 });
 
-app.get("/chat", async (req, res) => {
+app.get("/chat", async (req, res) => { // Route for chat
   try {
     if (req.session.authorized === true) {
       res.render(__dirname + "/views/chat.ejs" , {username: req.session.user})
@@ -506,7 +562,7 @@ app.get("/chat", async (req, res) => {
   }
 });
 
-app.post("/purchase", purchaseValidation(purchaseSchema), async (req, res) => {
+app.post("/purchase", purchaseValidation(purchaseSchema), async (req, res) => { // User makes a purchase reuqest
   try {
     if (req.session.authorized === true) {
       var ret = {balance: null, message: null, amounts: []};
@@ -535,7 +591,7 @@ app.post("/purchase", purchaseValidation(purchaseSchema), async (req, res) => {
         res.status(400).json(JSON.stringify(ret));
         return;
       }
-      req.session.balance = req.session.balance - totalPrice;
+      req.session.balance = req.session.balance - totalPrice; // If purchase is alright, make a query to update available items in database
       const query = `UPDATE "customers" 
                    SET "account_money" = $1
                    WHERE "username" = $2`;
@@ -585,7 +641,7 @@ app.post("/purchase", purchaseValidation(purchaseSchema), async (req, res) => {
   }
 });
 
-app.get("/log-out", async (req, res) => {
+app.get("/log-out", async (req, res) => { // Log out route (go back to home)
   try {
     if (req.session.authorized === true) {
       req.session.destroy();
@@ -612,7 +668,7 @@ app.get("/back", async (req, res) => {
   }
 });
 
-app.get("/gallery", async (req, res) => {
+app.get("/gallery", async (req, res) => { // Route to gallery
   try {
     if (req.session.authorized === true) {
     var count = 0;
@@ -632,7 +688,7 @@ app.get("/gallery", async (req, res) => {
   }
 });
 
-app.get("/photos", async (req, res) => {
+app.get("/photos", async (req, res) => { // Request for users images, saved in the server and sent back
   try {
     var photos = [];
     const result = await db.query("SELECT * FROM gallery");
@@ -657,7 +713,7 @@ app.get("/photos", async (req, res) => {
   return info.size;
 }*/
 
-app.post("/upload", upload.single("image"), async (req, res) => {
+app.post("/upload", upload.single("image"), async (req, res) => { // User request to save an image on the server
   try {
     if (req.session.authorized === true) {
       const result = await db.query("SELECT * FROM gallery");
@@ -684,7 +740,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
   }
 });
 
-app.delete("/delete-image", deleteImageValidation(deleteImageSchema), async (req, res) => {
+app.delete("/delete-image", deleteImageValidation(deleteImageSchema), async (req, res) => { // Delete a user's image saved on the server
   try {
     if (req.session.authorized === true) {
       const result = await db.query("SELECT * FROM gallery");

@@ -7,7 +7,7 @@ var all_radio = document.getElementsByClassName("triv");
 console.log(all_trivia);
 console.log(all_radio);
 
-for (var i = 0; i < all_radio.length; i++) {
+for (var i = 0; i < all_radio.length; i++) { // Main shop page, option to move to other pages or play trivia
   all_radio[i].style.display = "none";
   all_trivia[i].style.display = "none";
 }
@@ -15,7 +15,33 @@ submit.style.display = "none";
 
 play.classList.add("play-hover");
 
-play.addEventListener("click", () => {
+play.addEventListener("click", () => { // Trivia question fetch
+  let trivia;
+  play.disabled = true;
+  play.style.opacity = 0.5;
+  play.classList.remove("play-hover");
+  fetch("http://localhost:4000/trivia")
+    .then(res => res.json())
+    .then(data => {
+      trivia = JSON.parse(data);
+      flag = true;
+      document.getElementById("question").innerText = trivia.question;
+      console.log(document.getElementById("question").innerText); // Dispalying the trivia
+      console.log(all_trivia.length);
+      console.log(all_trivia);
+      console.log(trivia.answers.length);
+      for (var i = 0; i < all_trivia.length; i++) {
+        all_trivia[i].innerText = trivia.answers[i];
+        console.log(all_trivia[i]);
+        console.log(all_trivia[i].innerText);
+      }
+      hideOrBlock("block");
+      document.getElementById("message").innerText = "";
+      runTimer();
+    });
+});
+
+/*play.addEventListener("click", () => {
   let trivia;
   play.disabled = true;
   play.style.opacity = 0.5;
@@ -39,9 +65,9 @@ play.addEventListener("click", () => {
       document.getElementById("message").innerText = "";
       runTimer();
     });
-});
+});*/
 
-submit.addEventListener("click", submitFunc);
+submit.addEventListener("click", submitFunc); // Submit the trivia answer
 
 function submitFunc() {
   play.disabled = false;
@@ -80,7 +106,7 @@ function shuffle(array) {
   return array;
 }
 
-function runTimer() {
+function runTimer() { // Trivia timer client logic
   var sec = 29;
   timer = setInterval(() => {
     if (sec === 0) {

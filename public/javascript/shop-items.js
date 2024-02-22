@@ -10,7 +10,7 @@ for (var i = 0; i < buttons_add.length; i++) {
   buttons_dec[i].className += " " + items[i].innerText;
 }
 
-for (var i = 0; i < buttons_add.length; i++) {
+for (var i = 0; i < buttons_add.length; i++) { // Client's options to purchase items
   buttons_add[i].addEventListener("click", (event) => {
     classes = event.target.classList;
     for (var j = 0; j < items.length; j++) {
@@ -42,7 +42,7 @@ for (var i = 0; i < buttons_dec.length; i++) {
   });
 }
 
-purchase.addEventListener("click", () => {
+purchase.addEventListener("click", () => { // Request to validate purchase
   var chosen = {items: []};
   for (var i = 0; i < items.length; i++) {
     chosen.items.push(parseInt(amounts_chosen[i].innerText.substring(15)));

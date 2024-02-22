@@ -1,7 +1,7 @@
 const buttons = document.getElementsByTagName("button");
 const base_url = "http://localhost:4000/";
 
-for (var i = 0; i < buttons.length; i++) {
+for (var i = 0; i < buttons.length; i++) { // Request for login/signup pages
   buttons[i].addEventListener("click", (event) => {
     const str = event.target.innerText;
     if (str === "Login") {
