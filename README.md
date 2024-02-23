@@ -72,6 +72,7 @@ If the receiver accepts the private chat request both users are immediatley put 
 
 ![w14](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/0e1165f9-03d5-403a-833b-53dff4b45dcc)
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Snippet from database, my users table.
 Includes their username, hashed password, email (an email validation middleware was added at some point during the project..) and also amount of their balance (which can go up by answering trivia and go down after purchases in the shop)
