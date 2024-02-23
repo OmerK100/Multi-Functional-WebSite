@@ -26,3 +26,52 @@ The project stil needs some things to be added:
 
 ## Graphic exmaples of the app's pages:
 
+Login page:
+
+
+
+![w1](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/9766da1b-75cd-4a66-b1a8-b37614c98bea)
+
+Main home page with trivia:
+
+![w2](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/fc3621a4-588c-4729-9867-6eda0c915205)
+
+Trivia play:
+
+![w3](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/0afb252b-3e09-480e-9bc3-06391da7acff)
+
+Photo gallery (purple is a custom loading bar):
+
+![w4](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/df02daec-d280-441b-9439-6cd748b8275b)
+
+Shop (not enough creadits to make purchase in that example): 
+![w5](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/c41705c2-778a-4f59-98a3-23229ff1af9f)
+
+Main chat page:
+
+![w7](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/0ea9b032-1403-4873-b78d-0ae68609f807)
+
+Public chat room creation:
+
+![w8](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/fde15e05-705e-4bdf-abe3-46697fd10469)
+
+Joining a publlic room:
+![w9](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/761ddefa-4803-407c-b6cc-ef8ad7bb7735)
+
+Messaging in a room and other user leaving:
+![w10](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/1013df74-b619-48ab-9685-1fa459b4031d)
+
+Pop up of request for private chat from other user: (Probably should change the pop up to something else in order not to interupt users, or maybe add some ignore mechanism)
+![w11](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/077de698-0307-4049-a298-453e4706b8df)
+
+Pop up to inform user his private chat request was declined by the receiver:
+![w12](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/a9874fc3-a5a0-41b4-9b4e-417acdec654f)
+
+If the receiver accepts the private chat request both users are immediatley put into a private room to chat:
+![w13](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/ccd5c280-d7fb-4319-8fc3-9aab43ee84e5)
+
+![w14](https://github.com/OmerK100/Multi-Functional-Website/assets/139342166/0e1165f9-03d5-403a-833b-53dff4b45dcc)
+
+
+
+
